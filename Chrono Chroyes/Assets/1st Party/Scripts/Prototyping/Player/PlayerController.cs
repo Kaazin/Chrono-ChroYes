@@ -18,9 +18,9 @@ public class PlayerController : MonoBehaviour
 
 	public float timeSpeed = 1;	//the speed of time for the player
 	public Quaternion prevRot;
-
+	public float flightSpeed;
 	public List <EnemyAI> enemies;
-
+	public float maxFlightSpeed = 10;
 	void Awake()
 	{
 		//assign the references
@@ -89,7 +89,15 @@ public class PlayerController : MonoBehaviour
 
 		}
 
+		if(Input.GetKey(KeyCode.UpArrow))
+		{
+			Ascend ();
+		}
 
+		if(Input.GetKey(KeyCode.DownArrow))
+		{
+			Descend ();
+		}
 	}
 
 	/*void OnTriggerEnter(Collider col)
@@ -123,5 +131,23 @@ public class PlayerController : MonoBehaviour
 	}	void OnTriggerExit(Collider col)
 	{
 
+	}
+
+	void Fly()
+	{
+		rb.useGravity = false;
+	}
+
+	void Ascend()
+	{
+		if(dir.y < maxFlightSpeed)
+		dir.y += flightSpeed * Time.deltaTime;
+	}
+
+	void Descend()
+	{
+		if(dir.y > maxFlightSpeed)
+			
+		dir.y -= flightSpeed * Time.deltaTime;
 	}
 }
